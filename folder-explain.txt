@@ -1,0 +1,9 @@
+| Thư mục     | Vai trò                                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------------------------- |
+| `docs/`     | Chứa tài liệu gốc (markdown, PlantUML) cho toàn bộ nghiệp vụ và thiết kế. Gọn, có thể convert sang PDF. |
+| `src/`      | Mã nguồn phần mềm – tách theo kiến trúc **Clean Architecture** (hoặc kiểu Layered nếu em chưa quen).    |
+| `tests/`    | Viết test cho logic nghiệp vụ – không cần UI để test được.                                              |
+| `database/` | Nếu sau này em thêm SQLite hoặc EF Core Migrations thì folder này quản lý schema/script.                |
+| `diagrams/` | Export ảnh từ các `.puml` trong `docs/` để dễ view nhanh hoặc chèn vào report.                          |
+| `README.md` | Giới thiệu project, cách build, cách chạy.                                                              |
+| `.sln`      | File solution của C# (.NET) – tạo bằng Visual Studio.                                                   |

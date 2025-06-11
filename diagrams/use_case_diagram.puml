@@ -1,0 +1,20 @@
+@startuml ucd
+left to right direction
+skinparam packageStyle rectangle
+actor "Sinh viên" as Student
+actor "Admin học vụ" as Admin
+rectangle "Student Registration System" {
+  
+  Student --> (Đăng nhập)
+  Student --> (Xem danh sách môn học mở)
+  Student --> (Đăng ký môn học)
+  Student --> (Hủy môn học đã đăng ký)
+  Student --> (Xem danh sách môn đã đăng ký)
+  
+  Admin --> (Đăng nhập)
+  Admin --> (Thêm môn học)
+  Admin --> (Chỉnh sửa môn học)
+  Admin --> (Xoá môn học)
+  Admin --> (Xem danh sách đăng ký)
+}
+@enduml
