@@ -43,5 +43,22 @@ namespace StudentRegistration.Application.Interfaces
         /// <returns>Task hoàn thành</returns>
         /// <exception cref="ClassSectionFullException">Khi lớp đã đủ slot</exception>
         Task CheckClassSlotAvailabilityAsync(Guid classSectionId);
+
+        /// <summary>
+        /// Kiểm tra thời hạn hủy đăng ký môn học (BR05)
+        /// </summary>
+        /// <param name="studentId">ID của sinh viên</param>
+        /// <param name="courseId">ID của môn học</param>
+        /// <returns>Task hoàn thành</returns>
+        /// <exception cref="DropDeadlineExceededException">Khi quá thời hạn hủy đăng ký</exception>
+        Task CheckDropDeadlineAsync(Guid studentId, Guid courseId);
+
+        /// <summary>
+        /// Kiểm tra môn học không phải là bắt buộc (BR07)
+        /// </summary>
+        /// <param name="courseId">ID của môn học</param>
+        /// <returns>Task hoàn thành</returns>
+        /// <exception cref="CannotDropMandatoryCourseException">Khi môn học là bắt buộc</exception>
+        Task CheckMandatoryCourseAsync(Guid courseId);
     }
 } 

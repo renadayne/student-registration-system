@@ -92,5 +92,17 @@ namespace StudentRegistration.Application.Services
             // BR04 được xử lý bởi ClassSectionSlotRuleChecker
             throw new NotImplementedException("BR04 được xử lý bởi ClassSectionSlotRuleChecker");
         }
+
+        public Task CheckDropDeadlineAsync(Guid studentId, Guid courseId)
+        {
+            // BR05 được xử lý bởi DropDeadlineRuleChecker
+            throw new NotImplementedException("BR05 được xử lý bởi DropDeadlineRuleChecker");
+        }
+
+        public Task CheckMandatoryCourseAsync(Guid courseId)
+        {
+            // BR07 được xử lý bởi MandatoryCourseRuleChecker
+            throw new NotImplementedException("BR07 được xử lý bởi MandatoryCourseRuleChecker");
+        }
     }
 } 
