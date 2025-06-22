@@ -21,24 +21,34 @@
 - Exception phải nằm ở Domain layer.
 - Tên exception rõ ràng, message tiếng Việt.
 - Exception nên chứa thông tin chi tiết (ID, trạng thái, dữ liệu liên quan).
-- Ví dụ: `MaxEnrollmentExceededException`, `ScheduleConflictException`, `PrerequisiteNotMetException`, `ClassSectionFullException`.
+- Ví dụ: `MaxEnrollmentExceededException`, `ScheduleConflictException`, `PrerequisiteNotMetException`, `ClassSectionFullException`, `DropDeadlineExceededException`, `CannotDropMandatoryCourseException`.
 
 ---
 
 ## Ví dụ tổ chức code
-```
+```csharp
 Domain/Exceptions/
   MaxEnrollmentExceededException.cs
   ScheduleConflictException.cs
   PrerequisiteNotMetException.cs
   ClassSectionFullException.cs
+  DropDeadlineExceededException.cs         // BR05 - Quá hạn hủy đăng ký
+  CannotDropMandatoryCourseException.cs    // BR07 - Không được hủy môn bắt buộc
 Application/Interfaces/
   IEnrollmentRuleChecker.cs
+  ICoursePolicyRepository.cs                // BR05, BR07 - lấy deadline, trạng thái bắt buộc
+  IDateTimeProvider.cs                     // BR05 - mock thời gian
 Application/Services/
   MaxEnrollmentRuleChecker.cs
   PrerequisiteRuleChecker.cs
   ClassSectionSlotRuleChecker.cs
+  DropDeadlineRuleChecker.cs               // BR05 - kiểm tra deadline hủy
+  MandatoryCourseRuleChecker.cs            // BR07 - kiểm tra môn bắt buộc
 ```
+
+### Mô tả ngắn các rule checker mới:
+- **DropDeadlineRuleChecker (BR05):** Kiểm tra sinh viên chỉ được hủy đăng ký trong thời gian cho phép (so sánh ngày hiện tại với deadline từ repository).
+- **MandatoryCourseRuleChecker (BR07):** Kiểm tra môn học có phải là bắt buộc không (nếu bắt buộc thì không cho phép hủy).
 
 ---
 
