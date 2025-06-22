@@ -1,0 +1,116 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "StudentRegistration.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "StudentRegistration.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/StudentRegistration.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StudentRegistration.Application.dll": {}
+        }
+      },
+      "StudentRegistration.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/StudentRegistration.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/StudentRegistration.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "StudentRegistration.Application/1.0.0": {
+      "type": "project",
+      "path": "../StudentRegistration.Application/StudentRegistration.Application.csproj",
+      "msbuildProject": "../StudentRegistration.Application/StudentRegistration.Application.csproj"
+    },
+    "StudentRegistration.Domain/1.0.0": {
+      "type": "project",
+      "path": "../StudentRegistration.Domain/StudentRegistration.Domain.csproj",
+      "msbuildProject": "../StudentRegistration.Domain/StudentRegistration.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "StudentRegistration.Application >= 1.0.0",
+      "StudentRegistration.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Asus\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Console\\StudentRegistration.Console.csproj",
+      "projectName": "StudentRegistration.Console",
+      "projectPath": "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Console\\StudentRegistration.Console.csproj",
+      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+      "outputPath": "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Console\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Application\\StudentRegistration.Application.csproj": {
+              "projectPath": "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Application\\StudentRegistration.Application.csproj"
+            },
+            "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Domain\\StudentRegistration.Domain.csproj": {
+              "projectPath": "D:\\VS\\side-project\\student-registration-system\\src\\StudentRegistration.Domain\\StudentRegistration.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.411/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

@@ -46,7 +46,7 @@ Phát triển một hệ thống đăng ký học phần cho sinh viên nhằm h
 | ID   | Tên Use Case                | Actor      |
 |------|-----------------------------|------------|
 | UC01 | Đăng nhập                   | Sinh viên, Admin |
-| UC02 | Xem danh sách môn học mở   | Sinh viên  |
+| UC02 | Xem danh sách môn học mở    | Sinh viên  |
 | UC03 | Đăng ký môn học             | Sinh viên  |
 | UC04 | Hủy đăng ký môn học         | Sinh viên  |
 | UC05 | Xem danh sách đã đăng ký    | Sinh viên  |
@@ -54,6 +54,8 @@ Phát triển một hệ thống đăng ký học phần cho sinh viên nhằm h
 | UC07 | Chỉnh sửa thông tin môn     | Admin      |
 | UC08 | Xóa môn học                 | Admin      |
 | UC09 | Xem danh sách đăng ký       | Admin      |
+| UC10 | Hủy đăng ký thay cho sinh viên (trong trường hợp đặc biệt)       | Admin      |
+| UC11 | Mở rộng slot cho học phần       | Admin      |
 
 ---
 

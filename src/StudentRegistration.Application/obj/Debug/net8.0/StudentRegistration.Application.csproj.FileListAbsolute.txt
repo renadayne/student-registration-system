@@ -1,0 +1,16 @@
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\bin\Debug\net8.0\StudentRegistration.Application.deps.json
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\bin\Debug\net8.0\StudentRegistration.Application.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\bin\Debug\net8.0\StudentRegistration.Application.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\bin\Debug\net8.0\StudentRegistration.Domain.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\bin\Debug\net8.0\StudentRegistration.Domain.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.csproj.AssemblyReference.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.AssemblyInfoInputs.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.AssemblyInfo.cs
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.csproj.CoreCompileInputs.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.sourcelink.json
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentR.CA5BD916.Up2Date
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\refint\StudentRegistration.Application.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\StudentRegistration.Application.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Application\obj\Debug\net8.0\ref\StudentRegistration.Application.dll

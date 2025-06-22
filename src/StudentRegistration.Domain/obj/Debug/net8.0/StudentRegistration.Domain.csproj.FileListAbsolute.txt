@@ -1,0 +1,12 @@
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\bin\Debug\net8.0\StudentRegistration.Domain.deps.json
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\bin\Debug\net8.0\StudentRegistration.Domain.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\bin\Debug\net8.0\StudentRegistration.Domain.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.AssemblyInfoInputs.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.AssemblyInfo.cs
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.csproj.CoreCompileInputs.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.sourcelink.json
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\refint\StudentRegistration.Domain.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\StudentRegistration.Domain.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Domain\obj\Debug\net8.0\ref\StudentRegistration.Domain.dll
