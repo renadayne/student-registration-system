@@ -80,5 +80,11 @@ namespace StudentRegistration.Application.Services
         {
             return section1.HasScheduleConflictWith(section2);
         }
+
+        public Task CheckPrerequisiteRuleAsync(Guid studentId, Guid courseId, Guid semesterId)
+        {
+            // BR03 được xử lý bởi PrerequisiteRuleChecker
+            throw new NotImplementedException("BR03 được xử lý bởi PrerequisiteRuleChecker");
+        }
     }
 } 

@@ -25,5 +25,15 @@ namespace StudentRegistration.Application.Interfaces
         /// <returns>Task hoàn thành</returns>
         /// <exception cref="ScheduleConflictException">Khi trùng lịch với lớp đã đăng ký</exception>
         Task CheckScheduleConflictRuleAsync(Guid studentId, ClassSection targetSection, Guid semesterId);
+
+        /// <summary>
+        /// Kiểm tra xem sinh viên đã hoàn thành các môn tiên quyết chưa (BR03)
+        /// </summary>
+        /// <param name="studentId">ID của sinh viên</param>
+        /// <param name="courseId">ID của môn học muốn đăng ký</param>
+        /// <param name="semesterId">ID của học kỳ</param>
+        /// <returns>Task hoàn thành</returns>
+        /// <exception cref="PrerequisiteNotMetException">Khi chưa hoàn thành môn tiên quyết</exception>
+        Task CheckPrerequisiteRuleAsync(Guid studentId, Guid courseId, Guid semesterId);
     }
 } 
