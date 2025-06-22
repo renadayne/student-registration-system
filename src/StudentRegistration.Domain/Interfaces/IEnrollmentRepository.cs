@@ -13,6 +13,6 @@ namespace StudentRegistration.Domain.Interfaces
         /// <param name="studentId">ID của sinh viên</param>
         /// <param name="semesterId">ID của học kỳ</param>
         /// <returns>Danh sách các enrollment đang hoạt động</returns>
-        Task<IEnumerable<Enrollment>> GetEnrollmentsByStudentInSemesterAsync(int studentId, int semesterId);
+        Task<IEnumerable<Enrollment>> GetEnrollmentsByStudentInSemesterAsync(Guid studentId, Guid semesterId);
     }
 } 

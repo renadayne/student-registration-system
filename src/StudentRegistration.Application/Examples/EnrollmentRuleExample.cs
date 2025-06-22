@@ -22,7 +22,7 @@ namespace StudentRegistration.Application.Examples
         /// <param name="semesterId">ID học kỳ</param>
         /// <param name="sectionId">ID lớp học phần muốn đăng ký</param>
         /// <returns>Kết quả kiểm tra</returns>
-        public async Task<string> CheckBeforeEnrollmentAsync(int studentId, int semesterId, int sectionId)
+        public async Task<string> CheckBeforeEnrollmentAsync(Guid studentId, Guid semesterId, Guid sectionId)
         {
             try
             {

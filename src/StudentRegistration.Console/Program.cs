@@ -24,10 +24,11 @@ namespace StudentRegistration.Console
             {
                 System.Console.WriteLine("\n📋 MENU CHỨC NĂNG:");
                 System.Console.WriteLine("1. Test BR01 - Kiểm tra giới hạn 7 học phần");
-                System.Console.WriteLine("2. Demo đăng ký môn học");
-                System.Console.WriteLine("3. Xem danh sách enrollment hiện tại");
-                System.Console.WriteLine("4. Thoát");
-                System.Console.Write("\n👉 Chọn chức năng (1-4): ");
+                System.Console.WriteLine("2. Test BR02 - Kiểm tra trùng lịch học");
+                System.Console.WriteLine("3. Demo đăng ký môn học");
+                System.Console.WriteLine("4. Xem danh sách enrollment hiện tại");
+                System.Console.WriteLine("5. Thoát");
+                System.Console.Write("\n👉 Chọn chức năng (1-5): ");
                 
                 var choice = System.Console.ReadLine();
                 
@@ -37,12 +38,15 @@ namespace StudentRegistration.Console
                         await TestBR01(ruleChecker);
                         break;
                     case "2":
-                        await DemoEnrollment(ruleChecker, mockRepository);
+                        await TestBR02(ruleChecker);
                         break;
                     case "3":
-                        ShowCurrentEnrollments(mockRepository);
+                        await DemoEnrollment(ruleChecker, mockRepository);
                         break;
                     case "4":
+                        ShowCurrentEnrollments(mockRepository);
+                        break;
+                    case "5":
                         System.Console.WriteLine("👋 Tạm biệt!");
                         return;
                     default:
@@ -62,10 +66,10 @@ namespace StudentRegistration.Console
             
             var testCases = new[]
             {
-                new { StudentId = 1, SemesterId = 2024, Description = "Sinh viên có 6 môn học" },
-                new { StudentId = 2, SemesterId = 2024, Description = "Sinh viên có 7 môn học" },
-                new { StudentId = 3, SemesterId = 2024, Description = "Sinh viên có 8 môn học" },
-                new { StudentId = 4, SemesterId = 2024, Description = "Sinh viên có 0 môn học" }
+                new { StudentId = Guid.Parse("11111111-1111-1111-1111-111111111111"), SemesterId = Guid.Parse("20240000-0000-0000-0000-000000000000"), Description = "Sinh viên có 6 môn học" },
+                new { StudentId = Guid.Parse("22222222-2222-2222-2222-222222222222"), SemesterId = Guid.Parse("20240000-0000-0000-0000-000000000000"), Description = "Sinh viên có 7 môn học" },
+                new { StudentId = Guid.Parse("33333333-3333-3333-3333-333333333333"), SemesterId = Guid.Parse("20240000-0000-0000-0000-000000000000"), Description = "Sinh viên có 8 môn học" },
+                new { StudentId = Guid.Parse("44444444-4444-4444-4444-444444444444"), SemesterId = Guid.Parse("20240000-0000-0000-0000-000000000000"), Description = "Sinh viên có 0 môn học" }
             };
 
             foreach (var testCase in testCases)
@@ -89,6 +93,48 @@ namespace StudentRegistration.Console
         }
 
         /// <summary>
+        /// Test Business Rule BR02 - Trùng lịch học
+        /// </summary>
+        static async Task TestBR02(IEnrollmentRuleChecker ruleChecker)
+        {
+            System.Console.WriteLine("\n🧪 TEST BUSINESS RULE BR02");
+            System.Console.WriteLine("================================");
+            
+            var studentId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+            var semesterId = Guid.Parse("20240000-0000-0000-0000-000000000000");
+
+            // Test case 1: Không trùng lịch
+            var targetSection1 = new ClassSection(Guid.NewGuid(), "Toán A1", "MATH101");
+            targetSection1.AddScheduleSlot(new ScheduleSlot(DayOfWeek.Monday, new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)));
+
+            System.Console.Write("\n📝 Test không trùng lịch: ");
+            try
+            {
+                await ruleChecker.CheckScheduleConflictRuleAsync(studentId, targetSection1, semesterId);
+                System.Console.WriteLine("✅ PASS - Không trùng lịch");
+            }
+            catch (ScheduleConflictException ex)
+            {
+                System.Console.WriteLine($"❌ FAIL - {ex.Message}");
+            }
+
+            // Test case 2: Trùng lịch
+            var targetSection2 = new ClassSection(Guid.NewGuid(), "Lý A1", "PHYS101");
+            targetSection2.AddScheduleSlot(new ScheduleSlot(DayOfWeek.Monday, new TimeSpan(8, 0, 0), new TimeSpan(10, 0, 0)));
+
+            System.Console.Write("📝 Test trùng lịch: ");
+            try
+            {
+                await ruleChecker.CheckScheduleConflictRuleAsync(studentId, targetSection2, semesterId);
+                System.Console.WriteLine("✅ PASS - Không trùng lịch");
+            }
+            catch (ScheduleConflictException ex)
+            {
+                System.Console.WriteLine($"❌ FAIL - {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Demo quy trình đăng ký môn học
         /// </summary>
         static async Task DemoEnrollment(IEnrollmentRuleChecker ruleChecker, MockEnrollmentRepository repository)
@@ -96,42 +142,43 @@ namespace StudentRegistration.Console
             System.Console.WriteLine("\n🎯 DEMO ĐĂNG KÝ MÔN HỌC");
             System.Console.WriteLine("================================");
             
-            System.Console.Write("Nhập ID sinh viên: ");
-            if (!int.TryParse(System.Console.ReadLine(), out int studentId))
-            {
-                System.Console.WriteLine("❌ ID sinh viên không hợp lệ!");
-                return;
-            }
+            System.Console.Write("Nhập ID sinh viên (hoặc Enter để dùng ID mặc định): ");
+            var studentIdInput = System.Console.ReadLine();
+            var studentId = string.IsNullOrEmpty(studentIdInput) 
+                ? Guid.Parse("11111111-1111-1111-1111-111111111111")
+                : Guid.Parse(studentIdInput);
 
-            System.Console.Write("Nhập ID học kỳ: ");
-            if (!int.TryParse(System.Console.ReadLine(), out int semesterId))
-            {
-                System.Console.WriteLine("❌ ID học kỳ không hợp lệ!");
-                return;
-            }
-
-            System.Console.Write("Nhập ID lớp học phần: ");
-            if (!int.TryParse(System.Console.ReadLine(), out int sectionId))
-            {
-                System.Console.WriteLine("❌ ID lớp học phần không hợp lệ!");
-                return;
-            }
+            System.Console.Write("Nhập ID học kỳ (hoặc Enter để dùng ID mặc định): ");
+            var semesterIdInput = System.Console.ReadLine();
+            var semesterId = string.IsNullOrEmpty(semesterIdInput)
+                ? Guid.Parse("20240000-0000-0000-0000-000000000000")
+                : Guid.Parse(semesterIdInput);
 
             try
             {
-                // Bước 1: Kiểm tra business rule
-                System.Console.WriteLine("\n🔍 Đang kiểm tra business rules...");
+                // Bước 1: Kiểm tra business rule BR01
+                System.Console.WriteLine("\n🔍 Đang kiểm tra business rule BR01...");
                 await ruleChecker.CheckMaxEnrollmentRuleAsync(studentId, semesterId);
-                System.Console.WriteLine("✅ Business rule check: PASSED");
+                System.Console.WriteLine("✅ BR01 check: PASSED");
 
-                // Bước 2: Thêm enrollment (giả lập)
-                var enrollment = new Enrollment(studentId, sectionId, semesterId);
+                // Bước 2: Kiểm tra business rule BR02 (giả lập)
+                System.Console.WriteLine("🔍 Đang kiểm tra business rule BR02...");
+                var targetSection = new ClassSection(Guid.NewGuid(), "Demo Course", "DEMO101");
+                targetSection.AddScheduleSlot(new ScheduleSlot(DayOfWeek.Tuesday, new TimeSpan(14, 0, 0), new TimeSpan(16, 0, 0)));
+                await ruleChecker.CheckScheduleConflictRuleAsync(studentId, targetSection, semesterId);
+                System.Console.WriteLine("✅ BR02 check: PASSED");
+
+                // Bước 3: Thêm enrollment (giả lập)
                 System.Console.WriteLine("✅ Đăng ký thành công!");
-                System.Console.WriteLine($"📋 Thông tin: Sinh viên {studentId} đăng ký lớp {sectionId} học kỳ {semesterId}");
+                System.Console.WriteLine($"📋 Thông tin: Sinh viên {studentId} đăng ký lớp {targetSection.Name} học kỳ {semesterId}");
             }
             catch (MaxEnrollmentExceededException ex)
             {
-                System.Console.WriteLine($"❌ Đăng ký thất bại: {ex.Message}");
+                System.Console.WriteLine($"❌ Đăng ký thất bại (BR01): {ex.Message}");
+            }
+            catch (ScheduleConflictException ex)
+            {
+                System.Console.WriteLine($"❌ Đăng ký thất bại (BR02): {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -189,36 +236,88 @@ namespace StudentRegistration.Console
 
         private void InitializeMockData()
         {
+            var semesterId = Guid.Parse("20240000-0000-0000-0000-000000000000");
+
             // Sinh viên 1: 6 môn học
             for (int i = 1; i <= 6; i++)
             {
-                _enrollments.Add(new Enrollment(1, i, 2024) { Id = i, IsActive = true });
+                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i}", $"COURSE{i:000}");
+                var enrollment = new Enrollment(
+                    Guid.Parse("11111111-1111-1111-1111-111111111111"), 
+                    classSection.Id, 
+                    semesterId, 
+                    classSection)
+                {
+                    Id = i,
+                    IsActive = true
+                };
+                _enrollments.Add(enrollment);
             }
 
             // Sinh viên 2: 7 môn học
             for (int i = 1; i <= 7; i++)
             {
-                _enrollments.Add(new Enrollment(2, i + 10, 2024) { Id = i + 10, IsActive = true });
+                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i + 10}", $"COURSE{i + 10:000}");
+                var enrollment = new Enrollment(
+                    Guid.Parse("22222222-2222-2222-2222-222222222222"), 
+                    classSection.Id, 
+                    semesterId, 
+                    classSection)
+                {
+                    Id = i + 10,
+                    IsActive = true
+                };
+                _enrollments.Add(enrollment);
             }
 
             // Sinh viên 3: 8 môn học
             for (int i = 1; i <= 8; i++)
             {
-                _enrollments.Add(new Enrollment(3, i + 20, 2024) { Id = i + 20, IsActive = true });
+                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i + 20}", $"COURSE{i + 20:000}");
+                var enrollment = new Enrollment(
+                    Guid.Parse("33333333-3333-3333-3333-333333333333"), 
+                    classSection.Id, 
+                    semesterId, 
+                    classSection)
+                {
+                    Id = i + 20,
+                    IsActive = true
+                };
+                _enrollments.Add(enrollment);
             }
 
             // Sinh viên 4: 5 active + 3 inactive
             for (int i = 1; i <= 5; i++)
             {
-                _enrollments.Add(new Enrollment(4, i + 30, 2024) { Id = i + 30, IsActive = true });
+                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i + 30}", $"COURSE{i + 30:000}");
+                var enrollment = new Enrollment(
+                    Guid.Parse("44444444-4444-4444-4444-444444444444"), 
+                    classSection.Id, 
+                    semesterId, 
+                    classSection)
+                {
+                    Id = i + 30,
+                    IsActive = true
+                };
+                _enrollments.Add(enrollment);
             }
             for (int i = 6; i <= 8; i++)
             {
-                _enrollments.Add(new Enrollment(4, i + 30, 2024) { Id = i + 30, IsActive = false });
+                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i + 30}", $"COURSE{i + 30:000}");
+                var enrollment = new Enrollment(
+                    Guid.Parse("44444444-4444-4444-4444-444444444444"), 
+                    classSection.Id, 
+                    semesterId, 
+                    classSection)
+                {
+                    Id = i + 30,
+                    IsActive = false
+                };
+                _enrollments.Add(enrollment);
             }
         }
 
-        public Task<IEnumerable<Enrollment>> GetEnrollmentsByStudentInSemesterAsync(int studentId, int semesterId)
+        public Task<IEnumerable<Enrollment>> GetEnrollmentsByStudentInSemesterAsync(Guid studentId, Guid semesterId)
         {
             var result = _enrollments.Where(e => e.StudentId == studentId && e.SemesterId == semesterId);
             return Task.FromResult(result);

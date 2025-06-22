@@ -9,7 +9,7 @@ using StudentRegistration.Domain.Exceptions;
 namespace StudentRegistration.Application.Tests.Services
 {
     /// <summary>
-    /// Unit tests cho MaxEnrollmentRuleChecker
+    /// Unit tests cho MaxEnrollmentRuleChecker (BR01)
     /// </summary>
     public class MaxEnrollmentRuleCheckerTests
     {
@@ -26,8 +26,8 @@ namespace StudentRegistration.Application.Tests.Services
         public async Task CheckMaxEnrollmentRuleAsync_WhenStudentHas6Enrollments_ShouldPass()
         {
             // Arrange
-            var studentId = 1;
-            var semesterId = 2024;
+            var studentId = Guid.NewGuid();
+            var semesterId = Guid.NewGuid();
             var enrollments = CreateMockEnrollments(6, true); // 6 enrollment đang hoạt động
 
             _mockRepository.Setup(r => r.GetEnrollmentsByStudentInSemesterAsync(studentId, semesterId))
@@ -45,8 +45,8 @@ namespace StudentRegistration.Application.Tests.Services
         public async Task CheckMaxEnrollmentRuleAsync_WhenStudentHas7Enrollments_ShouldThrowMaxEnrollmentExceededException()
         {
             // Arrange
-            var studentId = 1;
-            var semesterId = 2024;
+            var studentId = Guid.NewGuid();
+            var semesterId = Guid.NewGuid();
             var enrollments = CreateMockEnrollments(7, true); // 7 enrollment đang hoạt động
 
             _mockRepository.Setup(r => r.GetEnrollmentsByStudentInSemesterAsync(studentId, semesterId))
@@ -68,8 +68,8 @@ namespace StudentRegistration.Application.Tests.Services
         public async Task CheckMaxEnrollmentRuleAsync_WhenStudentHas8Enrollments_ShouldThrowMaxEnrollmentExceededException()
         {
             // Arrange
-            var studentId = 1;
-            var semesterId = 2024;
+            var studentId = Guid.NewGuid();
+            var semesterId = Guid.NewGuid();
             var enrollments = CreateMockEnrollments(8, true); // 8 enrollment đang hoạt động
 
             _mockRepository.Setup(r => r.GetEnrollmentsByStudentInSemesterAsync(studentId, semesterId))
@@ -86,8 +86,8 @@ namespace StudentRegistration.Application.Tests.Services
         public async Task CheckMaxEnrollmentRuleAsync_WhenStudentHasInactiveEnrollments_ShouldOnlyCountActiveOnes()
         {
             // Arrange
-            var studentId = 1;
-            var semesterId = 2024;
+            var studentId = Guid.NewGuid();
+            var semesterId = Guid.NewGuid();
             var enrollments = CreateMockEnrollments(5, true)  // 5 active
                             .Concat(CreateMockEnrollments(3, false)); // 3 inactive
 
@@ -103,8 +103,8 @@ namespace StudentRegistration.Application.Tests.Services
         public async Task CheckMaxEnrollmentRuleAsync_WhenStudentHasNoEnrollments_ShouldPass()
         {
             // Arrange
-            var studentId = 1;
-            var semesterId = 2024;
+            var studentId = Guid.NewGuid();
+            var semesterId = Guid.NewGuid();
             var enrollments = Enumerable.Empty<Enrollment>();
 
             _mockRepository.Setup(r => r.GetEnrollmentsByStudentInSemesterAsync(studentId, semesterId))
@@ -118,7 +118,7 @@ namespace StudentRegistration.Application.Tests.Services
         public void Constructor_WhenRepositoryIsNull_ShouldThrowArgumentNullException()
         {
             // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new MaxEnrollmentRuleChecker(null));
+            Assert.Throws<ArgumentNullException>(() => new MaxEnrollmentRuleChecker(null!));
         }
 
         /// <summary>
@@ -129,7 +129,8 @@ namespace StudentRegistration.Application.Tests.Services
             var enrollments = new List<Enrollment>();
             for (int i = 0; i < count; i++)
             {
-                var enrollment = new Enrollment(1, i + 1, 2024)
+                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i + 1}", $"COURSE{i + 1:000}");
+                var enrollment = new Enrollment(Guid.NewGuid(), classSection.Id, Guid.NewGuid(), classSection)
                 {
                     Id = i + 1,
                     IsActive = isActive
