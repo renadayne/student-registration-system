@@ -86,5 +86,11 @@ namespace StudentRegistration.Application.Services
             // BR03 được xử lý bởi PrerequisiteRuleChecker
             throw new NotImplementedException("BR03 được xử lý bởi PrerequisiteRuleChecker");
         }
+
+        public Task CheckClassSlotAvailabilityAsync(Guid classSectionId)
+        {
+            // BR04 được xử lý bởi ClassSectionSlotRuleChecker
+            throw new NotImplementedException("BR04 được xử lý bởi ClassSectionSlotRuleChecker");
+        }
     }
 } 

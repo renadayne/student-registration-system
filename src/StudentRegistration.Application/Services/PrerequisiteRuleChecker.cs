@@ -78,4 +78,10 @@ public class PrerequisiteRuleChecker : IEnrollmentRuleChecker
 
         // Bước 5: Tất cả môn tiên quyết đã hoàn thành → Success
     }
+
+    public Task CheckClassSlotAvailabilityAsync(Guid classSectionId)
+    {
+        // BR04 được xử lý bởi ClassSectionSlotRuleChecker
+        throw new NotImplementedException("BR04 được xử lý bởi ClassSectionSlotRuleChecker");
+    }
 } 

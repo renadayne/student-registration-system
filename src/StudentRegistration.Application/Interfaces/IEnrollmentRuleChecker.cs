@@ -35,5 +35,13 @@ namespace StudentRegistration.Application.Interfaces
         /// <returns>Task hoàn thành</returns>
         /// <exception cref="PrerequisiteNotMetException">Khi chưa hoàn thành môn tiên quyết</exception>
         Task CheckPrerequisiteRuleAsync(Guid studentId, Guid courseId, Guid semesterId);
+
+        /// <summary>
+        /// Kiểm tra xem lớp học phần còn slot trống không (BR04)
+        /// </summary>
+        /// <param name="classSectionId">ID của lớp học phần</param>
+        /// <returns>Task hoàn thành</returns>
+        /// <exception cref="ClassSectionFullException">Khi lớp đã đủ slot</exception>
+        Task CheckClassSlotAvailabilityAsync(Guid classSectionId);
     }
 } 
