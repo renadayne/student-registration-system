@@ -9,7 +9,8 @@
       "StudentRegistration.Console/1.0.0": {
         "dependencies": {
           "StudentRegistration.Application": "1.0.0",
-          "StudentRegistration.Domain": "1.0.0"
+          "StudentRegistration.Domain": "1.0.0",
+          "StudentRegistration.Infrastructure": "1.0.0"
         },
         "runtime": {
           "StudentRegistration.Console.dll": {}
@@ -33,6 +34,17 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "StudentRegistration.Infrastructure/1.0.0": {
+        "dependencies": {
+          "StudentRegistration.Domain": "1.0.0"
+        },
+        "runtime": {
+          "StudentRegistration.Infrastructure.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -48,6 +60,11 @@
       "sha512": ""
     },
     "StudentRegistration.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "StudentRegistration.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

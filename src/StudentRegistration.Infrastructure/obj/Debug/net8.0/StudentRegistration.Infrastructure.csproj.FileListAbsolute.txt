@@ -1,0 +1,16 @@
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\bin\Debug\net8.0\StudentRegistration.Infrastructure.deps.json
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\bin\Debug\net8.0\StudentRegistration.Infrastructure.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\bin\Debug\net8.0\StudentRegistration.Infrastructure.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\bin\Debug\net8.0\StudentRegistration.Domain.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\bin\Debug\net8.0\StudentRegistration.Domain.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.csproj.AssemblyReference.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.AssemblyInfoInputs.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.AssemblyInfo.cs
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.csproj.CoreCompileInputs.cache
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.sourcelink.json
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentR.5DA1E11B.Up2Date
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\refint\StudentRegistration.Infrastructure.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\StudentRegistration.Infrastructure.pdb
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Infrastructure\obj\Debug\net8.0\ref\StudentRegistration.Infrastructure.dll

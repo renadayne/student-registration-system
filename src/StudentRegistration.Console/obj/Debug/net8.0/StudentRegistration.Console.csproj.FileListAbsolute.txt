@@ -19,3 +19,5 @@ D:\VS\side-project\student-registration-system\src\StudentRegistration.Console\o
 D:\VS\side-project\student-registration-system\src\StudentRegistration.Console\obj\Debug\net8.0\StudentRegistration.Console.pdb
 D:\VS\side-project\student-registration-system\src\StudentRegistration.Console\obj\Debug\net8.0\StudentRegistration.Console.genruntimeconfig.cache
 D:\VS\side-project\student-registration-system\src\StudentRegistration.Console\obj\Debug\net8.0\ref\StudentRegistration.Console.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Console\bin\Debug\net8.0\StudentRegistration.Infrastructure.dll
+D:\VS\side-project\student-registration-system\src\StudentRegistration.Console\bin\Debug\net8.0\StudentRegistration.Infrastructure.pdb
