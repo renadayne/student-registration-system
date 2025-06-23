@@ -129,10 +129,11 @@ namespace StudentRegistration.Application.Tests.Services
             var enrollments = new List<Enrollment>();
             for (int i = 0; i < count; i++)
             {
-                var classSection = new ClassSection(Guid.NewGuid(), $"Course {i + 1}", $"COURSE{i + 1:000}");
+                var courseId = Guid.NewGuid();
+                var classSection = new ClassSection(Guid.NewGuid(), courseId, $"Course {i + 1}", $"COURSE{i + 1:000}");
                 var enrollment = new Enrollment(Guid.NewGuid(), classSection.Id, Guid.NewGuid(), classSection)
                 {
-                    Id = i + 1,
+                    Id = Guid.NewGuid(),
                     IsActive = isActive
                 };
                 enrollments.Add(enrollment);

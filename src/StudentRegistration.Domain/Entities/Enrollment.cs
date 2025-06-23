@@ -5,7 +5,7 @@ namespace StudentRegistration.Domain.Entities
     /// </summary>
     public class Enrollment
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public Guid StudentId { get; set; }
         public Guid SectionId { get; set; }
         public Guid SemesterId { get; set; }
@@ -15,6 +15,7 @@ namespace StudentRegistration.Domain.Entities
 
         public Enrollment(Guid studentId, Guid sectionId, Guid semesterId, ClassSection classSection)
         {
+            Id = Guid.NewGuid();
             StudentId = studentId;
             SectionId = sectionId;
             SemesterId = semesterId;
@@ -26,6 +27,7 @@ namespace StudentRegistration.Domain.Entities
         // Constructor cũ để tương thích với code hiện tại
         public Enrollment(int studentId, int sectionId, int semesterId)
         {
+            Id = Guid.NewGuid();
             StudentId = new Guid();
             SectionId = new Guid();
             SemesterId = new Guid();

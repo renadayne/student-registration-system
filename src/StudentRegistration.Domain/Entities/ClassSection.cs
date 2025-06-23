@@ -8,6 +8,7 @@ namespace StudentRegistration.Domain.Entities
     public class ClassSection
     {
         public Guid Id { get; set; }
+        public Guid CourseId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string CourseCode { get; set; } = string.Empty;
         public List<ScheduleSlot> Schedule { get; set; } = new();
@@ -18,6 +19,16 @@ namespace StudentRegistration.Domain.Entities
         public ClassSection(Guid id, string name, string courseCode)
         {
             Id = id;
+            CourseId = id; // Tạm thời sử dụng Id làm CourseId
+            Name = name;
+            CourseCode = courseCode;
+            IsActive = true;
+        }
+
+        public ClassSection(Guid id, Guid courseId, string name, string courseCode)
+        {
+            Id = id;
+            CourseId = courseId;
             Name = name;
             CourseCode = courseCode;
             IsActive = true;
