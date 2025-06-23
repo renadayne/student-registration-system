@@ -14,6 +14,7 @@ Tài liệu này là điểm bắt đầu cho tất cả nội dung liên quan �
 | [PostmanTestingGuide.md](PostmanTestingGuide.md) | Hướng dẫn tạo request test API bằng Postman từng bước               |
 | [TestingGuide.md](TestingGuide.md) | **Hướng dẫn testing comprehensive** - tất cả script test, scenarios, troubleshooting |
 | [commit_sqlite_enrollment_repository.md](../commit_sqlite_enrollment_repository.md) | Hướng dẫn implement repository SQLite dùng trong API                |
+| [../14_Authentication_Guide.md](../14_Authentication_Guide.md): Hướng dẫn tổng quan về xác thực, phân quyền, test nhanh API bảo mật bằng JWT.
 
 ---
 

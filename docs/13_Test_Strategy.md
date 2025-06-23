@@ -221,6 +221,7 @@ dotnet test --filter "FullyQualifiedName~TestName"
 - [EnrollmentApiGuide.md](api/EnrollmentApiGuide.md) - API testing details
 - [PostmanTestingGuide.md](api/PostmanTestingGuide.md) - Manual testing guide
 - [12_Rule_Validation_Framework.md](12_Rule_Validation_Framework.md) - Business rules framework
+- Để test các API cần xác thực, xem thêm: [../14_Authentication_Guide.md](../14_Authentication_Guide.md)
 
 ---
 
