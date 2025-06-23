@@ -1,0 +1,80 @@
+# 🌐 Student Registration System – API Documentation Overview
+
+## 📦 Mục tiêu
+
+Tài liệu này là điểm bắt đầu cho tất cả nội dung liên quan đến tầng **Web API** của dự án Student Registration System.
+
+---
+
+## 📁 Tài liệu liên quan
+
+| Tên tài liệu                      | Mô tả                                                                 |
+|----------------------------------|----------------------------------------------------------------------|
+| [EnrollmentApiGuide.md](EnrollmentApiGuide.md) | Mô tả chi tiết các endpoint `/enrollments` (POST, DELETE), input/output, lỗi |
+| [PostmanTestingGuide.md](PostmanTestingGuide.md) | Hướng dẫn tạo request test API bằng Postman từng bước               |
+| [commit_sqlite_enrollment_repository.md](../commit_sqlite_enrollment_repository.md) | Hướng dẫn implement repository SQLite dùng trong API                |
+
+---
+
+## 🔧 Endpoint hiện có
+
+| Method | Endpoint                     | Mục tiêu                     | Tương ứng Use Case |
+|--------|------------------------------|------------------------------|---------------------|
+| POST   | `/api/enrollment`            | Đăng ký môn học              | UC03                |
+| DELETE | `/api/enrollment/{enrollmentId}`| Hủy đăng ký môn học          | UC04                |
+
+---
+
+## 🧠 Kiến trúc API
+
+- **Framework**: ASP.NET Core Web API (.NET 8)
+- **Controller**: `EnrollmentController.cs`
+- **DTO Input/Output**: nằm trong `Api/Contracts/`
+- **DI**: cấu hình trong `Program.cs`
+- **Exception Mapping**: xử lý trong middleware `ExceptionHandlerMiddleware.cs`
+- **Repository**: `SQLiteEnrollmentRepository` thực thi từ `IEnrollmentRepository`
+
+---
+
+## 🚀 Cách chạy API (local)
+
+```bash
+cd src/StudentRegistration.Api
+dotnet run
+# API mặc định chạy tại http://localhost:5255
+```
+
+Mở Swagger UI tại: http://localhost:5255/swagger
+
+---
+
+## 🧪 Cách test API
+
+- ⚡ **Dùng Postman**: theo hướng dẫn trong [PostmanTestingGuide.md](PostmanTestingGuide.md)
+- 🧪 **Dùng script PowerShell**: `test_api.ps1`, `test_delete.ps1`, v.v.
+- ✅ **99/99 test case** đều pass (Application + Infrastructure)
+
+---
+
+## ⚠️ Các lưu ý
+
+- ID phải là `Guid`, cần lấy từ console log hoặc seed data.
+- Nếu dùng SQLite in-memory → KHÔNG restart API giữa các call.
+- Exception từ Business Rule sẽ được map thành mã lỗi chuẩn REST:
+  - `400` → thiếu input
+  - `403` → bị chặn bởi rule
+  - `409` → xung đột logic
+  - `404` → ID không tồn tại
+
+---
+
+## 📌 Mở rộng trong tương lai
+
+- Thêm `GET /api/enrollment/{enrollmentId}` để xem thông tin enrollment
+- Versioning (`v1`, `v2`)
+- Hỗ trợ query/pagination
+- Middleware Logging & Response Wrapping
+
+---
+
+✅ **Mục tiêu**: Tài liệu duy nhất cần đọc để hiểu toàn bộ cách hoạt động của Web API và cách mở rộng, maintain trong tương lai. 
