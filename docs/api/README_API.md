@@ -12,6 +12,7 @@ Tài liệu này là điểm bắt đầu cho tất cả nội dung liên quan �
 |----------------------------------|----------------------------------------------------------------------|
 | [EnrollmentApiGuide.md](EnrollmentApiGuide.md) | Mô tả chi tiết các endpoint `/enrollments` (POST, DELETE), input/output, lỗi |
 | [PostmanTestingGuide.md](PostmanTestingGuide.md) | Hướng dẫn tạo request test API bằng Postman từng bước               |
+| [TestingGuide.md](TestingGuide.md) | **Hướng dẫn testing comprehensive** - tất cả script test, scenarios, troubleshooting |
 | [commit_sqlite_enrollment_repository.md](../commit_sqlite_enrollment_repository.md) | Hướng dẫn implement repository SQLite dùng trong API                |
 
 ---
@@ -22,6 +23,8 @@ Tài liệu này là điểm bắt đầu cho tất cả nội dung liên quan �
 |--------|------------------------------|------------------------------|---------------------|
 | POST   | `/api/enrollment`            | Đăng ký môn học              | UC03                |
 | DELETE | `/api/enrollment/{enrollmentId}`| Hủy đăng ký môn học          | UC04                |
+| GET    | `/api/enrollment/{enrollmentId}`| Lấy thông tin enrollment     | -                   |
+| GET    | `/students/{studentId}/enrollments`| Xem danh sách học phần đã đăng ký | UC05        |
 
 ---
 
@@ -51,7 +54,7 @@ Mở Swagger UI tại: http://localhost:5255/swagger
 ## 🧪 Cách test API
 
 - ⚡ **Dùng Postman**: theo hướng dẫn trong [PostmanTestingGuide.md](PostmanTestingGuide.md)
-- 🧪 **Dùng script PowerShell**: `test_api.ps1`, `test_delete.ps1`, v.v.
+- 🧪 **Dùng script PowerShell**: `test_api.ps1`, `test_delete.ps1`, `test_get_enrollments.ps1`
 - ✅ **99/99 test case** đều pass (Application + Infrastructure)
 
 ---
