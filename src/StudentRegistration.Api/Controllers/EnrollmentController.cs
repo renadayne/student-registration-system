@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentRegistration.Api.Contracts;
 using StudentRegistration.Application.Interfaces;
@@ -12,6 +13,7 @@ namespace StudentRegistration.Api.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 [Produces("application/json")]
+[Authorize]
 public class EnrollmentController : ControllerBase
 {
     private readonly IEnrollmentRepository _enrollmentRepository;

@@ -1,8 +1,8 @@
-using StudentRegistration.Application.Services;
 using StudentRegistration.Application.Interfaces;
-using StudentRegistration.Domain.Interfaces;
+using StudentRegistration.Application.Services;
 using StudentRegistration.Domain.Entities;
 using StudentRegistration.Domain.Exceptions;
+using StudentRegistration.Domain.Interfaces;
 
 namespace StudentRegistration.Console
 {
@@ -18,7 +18,22 @@ namespace StudentRegistration.Console
             
             // Tạo mock repository và rule checker
             var mockRepository = new MockEnrollmentRepository();
-            var ruleChecker = new MaxEnrollmentRuleChecker(mockRepository);
+            
+            // Tạo các rule checker riêng lẻ
+            var maxEnrollmentRuleChecker = new MaxEnrollmentRuleChecker(mockRepository);
+            var scheduleConflictRuleChecker = new ScheduleConflictRuleChecker(mockRepository);
+            var prerequisiteRuleChecker = new PrerequisiteRuleChecker(null!, null!); // Tạm thời null
+            var classSectionSlotRuleChecker = new ClassSectionSlotRuleChecker(null!); // Tạm thời null
+            
+            // Tạo composite rule checker
+            var ruleChecker = new EnrollmentRuleChecker(
+                maxEnrollmentRuleChecker,
+                scheduleConflictRuleChecker,
+                prerequisiteRuleChecker,
+                classSectionSlotRuleChecker,
+                null!, // DropDeadlineRuleChecker tạm thời null
+                null!  // MandatoryCourseRuleChecker tạm thời null
+            );
             
             while (true)
             {
@@ -359,6 +374,11 @@ namespace StudentRegistration.Console
                 e.SemesterId == semesterId && 
                 e.IsActive);
             return Task.FromResult(isEnrolled);
+        }
+
+        public Task<IEnumerable<Enrollment>> GetAllEnrollmentsAsync()
+        {
+            return Task.FromResult<IEnumerable<Enrollment>>(_enrollments);
         }
 
         public IEnumerable<Enrollment> GetAllEnrollments()
