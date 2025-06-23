@@ -27,6 +27,7 @@
 | `POST` | `/api/enrollment` | Đăng ký môn học | UC03 |
 | `DELETE` | `/api/enrollment/{id}` | Hủy đăng ký môn học | UC04 |
 | `GET` | `/api/enrollment/{id}` | Lấy thông tin enrollment | - |
+| `GET` | `/students/{studentId}/enrollments` | Xem danh sách học phần đã đăng ký | UC05 |
 
 ### 🔧 Business Rules được áp dụng
 - **BR01**: Tối đa 7 môn học mỗi học kỳ
@@ -90,6 +91,13 @@ dotnet run --project src/StudentRegistration.Api
 4. Điền enrollment ID vào parameter
 5. Click **"Execute"**
 6. Xem response (204 No Content = thành công)
+
+### 📋 Test xem danh sách enrollment
+1. Tìm `GET /students/{studentId}/enrollments`
+2. Click **"Try it out"**
+3. Điền studentId và semesterId
+4. Click **"Execute"**
+5. Xem danh sách enrollment trả về
 
 ---
 
@@ -163,6 +171,45 @@ Content-Type: application/json
 }
 ```
 
+### 📊 4.4 Xem danh sách học phần đã đăng ký (UC05)
+
+**Request**:
+```
+Method: GET
+URL: http://localhost:5255/students/11111111-1111-1111-1111-111111111111/enrollments?semesterId=20240000-0000-0000-0000-000000000000
+```
+
+**Response thành công**:
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[
+  {
+    "enrollmentId": "3c6a525d-fde6-4081-bf25-8ea963d49584",
+    "courseId": "33333333-3333-3333-3333-333333333333",
+    "classSectionId": "22222222-2222-2222-2222-222222222222",
+    "semesterId": "20240000-0000-0000-0000-000000000000",
+    "enrollmentDate": "2024-06-23T23:15:30.1234567Z"
+  },
+  {
+    "enrollmentId": "4d7b636e-0ef7-5192-bf36-9fb074e59695",
+    "courseId": "44444444-4444-4444-4444-444444444444",
+    "classSectionId": "55555555-5555-5555-5555-555555555555",
+    "semesterId": "20240000-0000-0000-0000-000000000000",
+    "enrollmentDate": "2024-06-23T23:20:15.1234567Z"
+  }
+]
+```
+
+**Response khi không có enrollment**:
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+[]
+```
+
 ---
 
 ## 5. Sample curl commands
@@ -188,6 +235,11 @@ curl -X DELETE "http://localhost:5255/api/enrollment/3c6a525d-fde6-4081-bf25-8ea
 curl -X GET "http://localhost:5255/api/enrollment/3c6a525d-fde6-4081-bf25-8ea963d49584"
 ```
 
+### 📊 Xem danh sách học phần đã đăng ký
+```bash
+curl -X GET "http://localhost:5255/students/11111111-1111-1111-1111-111111111111/enrollments?semesterId=20240000-0000-0000-0000-000000000000"
+```
+
 ### 🧪 Test script PowerShell
 ```powershell
 # Chạy script test hoàn chỉnh
@@ -195,6 +247,9 @@ powershell -ExecutionPolicy Bypass -File test_complete.ps1
 
 # Test đơn giản
 powershell -ExecutionPolicy Bypass -File test_api_simple.ps1
+
+# Test UC05 - Xem danh sách enrollment
+powershell -ExecutionPolicy Bypass -File test_get_enrollments.ps1
 ```
 
 ---
