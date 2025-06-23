@@ -11,6 +11,8 @@
 | [04_Postman_Auth_Testing.md](04_Postman_Auth_Testing.md) | Test authentication bằng Postman | ⭐⭐ |
 | [05_Troubleshooting_Auth.md](05_Troubleshooting_Auth.md) | Xử lý lỗi authentication | ⭐⭐ |
 | [06_Production_Security_Tips.md](06_Production_Security_Tips.md) | Bảo mật cho production | ⭐ |
+| [07_Refresh_Token_Flow.md](07_Refresh_Token_Flow.md) | Hướng dẫn Refresh Token Flow | ⭐⭐⭐ |
+| [08_SQLite_RefreshTokenStore.md](08_SQLite_RefreshTokenStore.md) | Implementation SQLite RefreshTokenStore | ⭐⭐ |
 
 ---
 
@@ -38,6 +40,12 @@ Tài liệu này dành cho:
 3. **Debug issues**: [05_Troubleshooting_Auth.md](05_Troubleshooting_Auth.md)
 4. **Production ready**: [06_Production_Security_Tips.md](06_Production_Security_Tips.md)
 
+### 🚀 Cho production deployment (45-60 phút)
+1. **Tất cả tài liệu trên** +
+2. **Refresh Token**: [07_Refresh_Token_Flow.md](07_Refresh_Token_Flow.md)
+3. **SQLite Implementation**: [08_SQLite_RefreshTokenStore.md](08_SQLite_RefreshTokenStore.md)
+4. **Production Security**: [06_Production_Security_Tips.md](06_Production_Security_Tips.md)
+
 ---
 
 ## 🔑 Kiến thức cần có trước
@@ -45,6 +53,7 @@ Tài liệu này dành cho:
 - Hiểu cơ bản về HTTP, REST API
 - Biết sử dụng Postman hoặc curl
 - Có kiến thức về C# .NET (cho phần implement)
+- Hiểu cơ bản về SQLite (cho production deployment)
 
 ---
 
@@ -53,6 +62,7 @@ Tài liệu này dành cho:
 - [API Documentation](../api/README_API.md) - Tổng quan API
 - [Testing Guide](../api/TestingGuide.md) - Hướng dẫn testing
 - [Business Rules](../05_Business_Rules.md) - Business rules của hệ thống
+- [Authentication Guide](../14_Authentication_Guide.md) - Tổng quan Authentication
 
 ---
 
@@ -62,6 +72,7 @@ Tài liệu này dành cho:
 - **Luôn dùng HTTPS** trong production
 - **Test authentication** trước khi deploy
 - **Log security events** để audit
+- **Configure RefreshTokenStore** phù hợp với environment (InMemory/SQLite)
 
 ---
 
@@ -74,6 +85,8 @@ Sau khi đọc xong tài liệu này, bạn sẽ:
 - ✅ Implement bảo vệ cho API mới
 - ✅ Debug được các lỗi authentication
 - ✅ Deploy hệ thống an toàn
+- ✅ Configure RefreshTokenStore cho production
+- ✅ Implement SQLite storage cho refresh tokens
 
 ---
 

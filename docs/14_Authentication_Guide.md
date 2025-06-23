@@ -3,21 +3,24 @@
 ## 🎯 Mục tiêu tài liệu
 - Giúp người đọc (dev, tester, QA, AI assistant) hiểu rõ cách hệ thống xác thực (authentication) và phân quyền (authorization) hoạt động.
 - Hướng dẫn cấu hình, sử dụng, test nhanh các API bảo mật bằng JWT.
+- Hướng dẫn cấu hình RefreshTokenStore (InMemory/SQLite) cho các environment khác nhau.
 
 ---
 
 ## 🔄 Flow Authentication
 
 1. **User gửi request login** (POST `/auth/login` với username/password)
-2. **API xác thực thông tin** → Nếu đúng, trả về **JWT Token**
-3. **Client lưu JWT** (localStorage, env, ...)
-4. **Gọi các API khác** → Gửi JWT qua header `Authorization: Bearer <token>`
-5. **Middleware kiểm tra token** → Nếu hợp lệ, cho phép truy cập; nếu không, trả về lỗi 401/403
+2. **API xác thực thông tin** → Nếu đúng, trả về **JWT Access Token + Refresh Token**
+3. **Client lưu tokens** (Access Token cho API calls, Refresh Token cho renewal)
+4. **Gọi các API khác** → Gửi Access Token qua header `Authorization: Bearer <token>`
+5. **Middleware kiểm tra token** → Nếu hợp lệ, cho phép truy cập; nếu hết hạn, dùng Refresh Token
+6. **Refresh Token Flow** → Gửi Refresh Token để lấy Access Token mới
 
 ### 🔗 Sơ đồ tổng quát
 ```
-User → [POST /auth/login] → API → [JWT] → User
-User → [GET /api/protected] + JWT → API → [Kiểm tra JWT] → Trả về dữ liệu hoặc lỗi
+User → [POST /auth/login] → API → [Access Token + Refresh Token] → User
+User → [GET /api/protected] + Access Token → API → [Kiểm tra JWT] → Trả về dữ liệu hoặc lỗi
+User → [POST /auth/refresh] + Refresh Token → API → [New Access Token] → User
 ```
 
 ---
@@ -30,14 +33,36 @@ User → [GET /api/protected] + JWT → API → [Kiểm tra JWT] → Trả về 
   "JwtSettings": {
     "SecretKey": "your-super-secret-key-with-at-least-32-characters",
     "Issuer": "StudentRegistrationSystem",
-    "Audience": "StudentRegistrationSystem",
-    "ExpirationHours": 2
+    "Audience": "StudentRegistrationSystem"
+  },
+  "UseSqliteForRefreshTokens": true,
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=student_registration.db"
   }
 }
 ```
 
 ### 2. Đăng ký DI trong `Program.cs`
 ```csharp
+// Refresh Token Services - Configurable: InMemory hoặc SQLite
+var useSqliteForRefreshTokens = builder.Configuration.GetValue<bool>("UseSqliteForRefreshTokens", false);
+
+if (useSqliteForRefreshTokens)
+{
+    // SQLite Refresh Token Store (Production)
+    var sqliteConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+        ?? "Data Source=student_registration.db";
+    builder.Services.AddScoped<IRefreshTokenStore>(sp => 
+        new SQLiteRefreshTokenStore(sqliteConnectionString));
+}
+else
+{
+    // InMemory Refresh Token Store (Development)
+    builder.Services.AddSingleton<IRefreshTokenStore, InMemoryRefreshTokenStore>();
+}
+
+builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+
 // Đăng ký JWT authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -69,13 +94,17 @@ app.UseAuthorization();
 | Controller | Endpoint | [Authorize] | Role |
 |------------|----------|-------------|------|
 | `AuthController` | `/auth/login` | ❌ | Public |
+| `AuthController` | `/auth/refresh` | ❌ | Public |
+| `AuthController` | `/auth/logout` | ✅ | Authenticated |
+| `AuthController` | `/auth/me` | ✅ | Authenticated |
+| `AuthController` | `/auth/validate` | ✅ | Authenticated |
 | `EnrollmentController` | `/api/enrollment` (POST, DELETE) | ✅ | Student, Admin |
 | `EnrollmentController` | `/students/{id}/enrollments` (GET) | ✅ | Student, Admin |
 | `AdminController` (nếu có) | `/admin/*` | ✅ | Admin |
 
 - **[Authorize]**: Chỉ cho phép user đã đăng nhập (có JWT hợp lệ)
 - **[Authorize(Roles = "Admin")]**: Chỉ cho phép user có role Admin
-- **[AllowAnonymous]**: Cho phép truy cập không cần đăng nhập (dùng cho login, public info)
+- **[AllowAnonymous]**: Cho phép truy cập không cần đăng nhập (dùng cho login, refresh)
 
 ---
 
@@ -105,6 +134,8 @@ app.UseAuthorization();
 - [docs/security/04_Postman_Auth_Testing.md](security/04_Postman_Auth_Testing.md)
 - [docs/security/05_Troubleshooting_Auth.md](security/05_Troubleshooting_Auth.md)
 - [docs/security/06_Production_Security_Tips.md](security/06_Production_Security_Tips.md)
+- [docs/security/07_Refresh_Token_Flow.md](security/07_Refresh_Token_Flow.md)
+- [docs/security/08_SQLite_RefreshTokenStore.md](security/08_SQLite_RefreshTokenStore.md)
 
 ---
 
@@ -115,18 +146,24 @@ app.UseAuthorization();
   ```json
   { "username": "student1", "password": "password123" }
   ```
-- Lưu `accessToken` từ response
+- Lưu `accessToken` và `refreshToken` từ response
 - Gọi các API khác, thêm header:
   ```
   Authorization: Bearer <accessToken>
   ```
+- Khi access token hết hạn, gửi POST `/auth/refresh` với body:
+  ```json
+  { "refreshToken": "<refreshToken>" }
+  ```
 
 ### 2. Test bằng PowerShell
 ```powershell
-$baseUrl = "http://localhost:5255"
-$response = Invoke-RestMethod -Method POST -Uri "$baseUrl/auth/login" -Body (@{ username="student1"; password="password123" } | ConvertTo-Json) -ContentType "application/json"
-$token = $response.accessToken
-Invoke-RestMethod -Method GET -Uri "$baseUrl/students/11111111-1111-1111-1111-111111111111/enrollments?semesterId=20240000-0000-0000-0000-000000000000" -Headers @{ Authorization = "Bearer $token" }
+# Test InMemory Store
+.\test_auth.ps1
+.\test_refresh.ps1
+
+# Test SQLite Store (cần set UseSqliteForRefreshTokens=true)
+.\test_refresh_sqlite.ps1
 ```
 
 ### 3. Test bằng Swagger UI
@@ -134,6 +171,35 @@ Invoke-RestMethod -Method GET -Uri "$baseUrl/students/11111111-1111-1111-1111-11
 - Đăng nhập lấy token
 - Click "Authorize" (biểu tượng ổ khóa), dán token vào: `Bearer <accessToken>`
 - Gọi các API đã được bảo vệ
+
+---
+
+## 🔧 Environment Configuration
+
+### Development (InMemory)
+```json
+// appsettings.Development.json
+{
+  "UseSqliteForRefreshTokens": false,
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  }
+}
+```
+
+### Production (SQLite)
+```json
+// appsettings.Production.json
+{
+  "UseSqliteForRefreshTokens": true,
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=/var/lib/student-registration/student_registration.db"
+  }
+}
+```
 
 ---
 
