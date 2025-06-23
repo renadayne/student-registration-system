@@ -146,6 +146,9 @@ public class RegisterCourseUseCase
 ### Tests:
 - `MaxEnrollmentRuleCheckerTests.cs` - Unit tests đầy đủ
 
+## 🔐 Authentication System
+- [docs/14_Authentication_Guide.md](docs/14_Authentication_Guide.md): Tổng quan, flow, cấu hình, controller, role, hướng dẫn test authentication bằng JWT cho hệ thống.
+
 ## 📋 Tiếp theo
 
 - [ ] Implement BR02 - Tránh trùng lịch học
