@@ -6,9 +6,9 @@ using StudentRegistration.Domain.Entities;
 namespace StudentRegistration.Application.Services
 {
     /// <summary>
-    /// Service kiểm tra business rules BR01 và BR02
+    /// Service kiểm tra business rule BR01 - Tối đa 7 môn học mỗi học kỳ
     /// </summary>
-    public class MaxEnrollmentRuleChecker : IEnrollmentRuleChecker
+    public class MaxEnrollmentRuleChecker : IMaxEnrollmentRuleChecker
     {
         private readonly IEnrollmentRepository _enrollmentRepository;
         private const int MAX_ENROLLMENTS_PER_SEMESTER = 7;

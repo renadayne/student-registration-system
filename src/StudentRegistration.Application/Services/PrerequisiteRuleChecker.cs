@@ -1,14 +1,13 @@
 using StudentRegistration.Application.Interfaces;
 using StudentRegistration.Domain.Interfaces;
 using StudentRegistration.Domain.Exceptions;
-using StudentRegistration.Domain.Entities;
 
 namespace StudentRegistration.Application.Services;
 
 /// <summary>
 /// Service kiểm tra business rule BR03 - Môn tiên quyết
 /// </summary>
-public class PrerequisiteRuleChecker : IEnrollmentRuleChecker
+public class PrerequisiteRuleChecker : IPrerequisiteRuleChecker
 {
     private readonly ICourseRepository _courseRepository;
     private readonly IStudentRecordRepository _studentRecordRepository;
@@ -19,24 +18,6 @@ public class PrerequisiteRuleChecker : IEnrollmentRuleChecker
     {
         _courseRepository = courseRepository;
         _studentRecordRepository = studentRecordRepository;
-    }
-
-    /// <summary>
-    /// Kiểm tra xem sinh viên có thể đăng ký thêm học phần không (BR01)
-    /// </summary>
-    public async Task CheckMaxEnrollmentRuleAsync(Guid studentId, Guid semesterId)
-    {
-        // BR01 được xử lý bởi MaxEnrollmentRuleChecker
-        throw new NotImplementedException("BR01 được xử lý bởi MaxEnrollmentRuleChecker");
-    }
-
-    /// <summary>
-    /// Kiểm tra xem sinh viên có thể đăng ký lớp học phần không bị trùng lịch (BR02)
-    /// </summary>
-    public async Task CheckScheduleConflictRuleAsync(Guid studentId, ClassSection targetSection, Guid semesterId)
-    {
-        // BR02 được xử lý bởi MaxEnrollmentRuleChecker
-        throw new NotImplementedException("BR02 được xử lý bởi MaxEnrollmentRuleChecker");
     }
 
     /// <summary>
@@ -77,23 +58,5 @@ public class PrerequisiteRuleChecker : IEnrollmentRuleChecker
         }
 
         // Bước 5: Tất cả môn tiên quyết đã hoàn thành → Success
-    }
-
-    public Task CheckClassSlotAvailabilityAsync(Guid classSectionId)
-    {
-        // BR04 được xử lý bởi ClassSectionSlotRuleChecker
-        throw new NotImplementedException("BR04 được xử lý bởi ClassSectionSlotRuleChecker");
-    }
-
-    public Task CheckDropDeadlineAsync(Guid studentId, Guid courseId)
-    {
-        // BR05 được xử lý bởi DropDeadlineRuleChecker
-        throw new NotImplementedException("BR05 được xử lý bởi DropDeadlineRuleChecker");
-    }
-
-    public Task CheckMandatoryCourseAsync(Guid courseId)
-    {
-        // BR07 được xử lý bởi MandatoryCourseRuleChecker
-        throw new NotImplementedException("BR07 được xử lý bởi MandatoryCourseRuleChecker");
     }
 } 

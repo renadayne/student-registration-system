@@ -1,47 +1,19 @@
 using StudentRegistration.Application.Interfaces;
 using StudentRegistration.Domain.Interfaces;
 using StudentRegistration.Domain.Exceptions;
-using StudentRegistration.Domain.Entities;
 
 namespace StudentRegistration.Application.Services;
 
 /// <summary>
 /// Service kiểm tra business rule BR04 - Slot lớp học phần
 /// </summary>
-public class ClassSectionSlotRuleChecker : IEnrollmentRuleChecker
+public class ClassSectionSlotRuleChecker : IClassSectionSlotRuleChecker
 {
     private readonly IClassSectionRepository _classSectionRepository;
 
     public ClassSectionSlotRuleChecker(IClassSectionRepository classSectionRepository)
     {
         _classSectionRepository = classSectionRepository;
-    }
-
-    /// <summary>
-    /// Kiểm tra xem sinh viên có thể đăng ký thêm học phần không (BR01)
-    /// </summary>
-    public async Task CheckMaxEnrollmentRuleAsync(Guid studentId, Guid semesterId)
-    {
-        // BR01 được xử lý bởi MaxEnrollmentRuleChecker
-        throw new NotImplementedException("BR01 được xử lý bởi MaxEnrollmentRuleChecker");
-    }
-
-    /// <summary>
-    /// Kiểm tra xem sinh viên có thể đăng ký lớp học phần không bị trùng lịch (BR02)
-    /// </summary>
-    public async Task CheckScheduleConflictRuleAsync(Guid studentId, ClassSection targetSection, Guid semesterId)
-    {
-        // BR02 được xử lý bởi MaxEnrollmentRuleChecker
-        throw new NotImplementedException("BR02 được xử lý bởi MaxEnrollmentRuleChecker");
-    }
-
-    /// <summary>
-    /// Kiểm tra xem sinh viên đã hoàn thành các môn tiên quyết chưa (BR03)
-    /// </summary>
-    public async Task CheckPrerequisiteRuleAsync(Guid studentId, Guid courseId, Guid semesterId)
-    {
-        // BR03 được xử lý bởi PrerequisiteRuleChecker
-        throw new NotImplementedException("BR03 được xử lý bởi PrerequisiteRuleChecker");
     }
 
     /// <summary>
@@ -70,17 +42,5 @@ public class ClassSectionSlotRuleChecker : IEnrollmentRuleChecker
         // Có thể log thông tin: còn bao nhiêu slot trống
         var remainingSlots = maxSlot - currentEnrollmentCount;
         // Console.WriteLine($"Lớp {classSectionId} còn {remainingSlots} slot trống");
-    }
-
-    public Task CheckDropDeadlineAsync(Guid studentId, Guid courseId)
-    {
-        // BR05 được xử lý bởi DropDeadlineRuleChecker
-        throw new NotImplementedException("BR05 được xử lý bởi DropDeadlineRuleChecker");
-    }
-
-    public Task CheckMandatoryCourseAsync(Guid courseId)
-    {
-        // BR07 được xử lý bởi MandatoryCourseRuleChecker
-        throw new NotImplementedException("BR07 được xử lý bởi MandatoryCourseRuleChecker");
     }
 } 

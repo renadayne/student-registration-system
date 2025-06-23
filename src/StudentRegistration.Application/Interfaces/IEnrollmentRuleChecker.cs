@@ -8,6 +8,20 @@ namespace StudentRegistration.Application.Interfaces
     public interface IEnrollmentRuleChecker
     {
         /// <summary>
+        /// Kiểm tra tất cả business rules cho việc đăng ký môn học (BR01-BR04)
+        /// </summary>
+        /// <param name="enrollment">Enrollment object cần kiểm tra</param>
+        /// <returns>Task hoàn thành</returns>
+        Task CheckEnrollmentRulesAsync(Enrollment enrollment);
+
+        /// <summary>
+        /// Kiểm tra tất cả business rules cho việc hủy đăng ký môn học (BR05, BR07)
+        /// </summary>
+        /// <param name="enrollment">Enrollment object cần kiểm tra</param>
+        /// <returns>Task hoàn thành</returns>
+        Task CheckDropRulesAsync(Enrollment enrollment);
+
+        /// <summary>
         /// Kiểm tra xem sinh viên có thể đăng ký thêm học phần không (BR01)
         /// </summary>
         /// <param name="studentId">ID của sinh viên</param>
