@@ -79,6 +79,67 @@ namespace StudentRegistration.Infrastructure.Repositories
         }
 
         /// <summary>
+        /// Lấy tất cả enrollment (cho testing và admin)
+        /// </summary>
+        /// <returns>Danh sách tất cả enrollment</returns>
+        public async Task<IEnumerable<Enrollment>> GetAllEnrollmentsAsync()
+        {
+            var connection = GetConnection(out var shouldDispose);
+            try
+            {
+                if (connection.State != System.Data.ConnectionState.Open)
+                    await connection.OpenAsync();
+
+                var sql = @"
+                    SELECT Id, StudentId, ClassSectionId, CourseId, SemesterId, EnrollmentDate, IsActive
+                    FROM Enrollments 
+                    ORDER BY EnrollmentDate DESC
+                ";
+
+                using var command = new SqliteCommand(sql, connection);
+                var enrollments = new List<Enrollment>();
+                using var reader = await command.ExecuteReaderAsync();
+
+                // Lấy index các cột
+                var idxId = reader.GetOrdinal("Id");
+                var idxStudentId = reader.GetOrdinal("StudentId");
+                var idxClassSectionId = reader.GetOrdinal("ClassSectionId");
+                var idxCourseId = reader.GetOrdinal("CourseId");
+                var idxSemesterId = reader.GetOrdinal("SemesterId");
+                var idxEnrollmentDate = reader.GetOrdinal("EnrollmentDate");
+                var idxIsActive = reader.GetOrdinal("IsActive");
+
+                while (await reader.ReadAsync())
+                {
+                    var enrollment = new Enrollment(
+                        Guid.Parse(reader.GetString(idxStudentId)),
+                        Guid.Parse(reader.GetString(idxClassSectionId)),
+                        Guid.Parse(reader.GetString(idxSemesterId)),
+                        new ClassSection(
+                            Guid.Parse(reader.GetString(idxClassSectionId)),
+                            Guid.Parse(reader.GetString(idxCourseId)),
+                            "Course", "CODE"
+                        )
+                    )
+                    {
+                        Id = Guid.Parse(reader.GetString(idxId)),
+                        EnrollmentDate = DateTime.Parse(reader.GetString(idxEnrollmentDate)),
+                        IsActive = reader.GetInt32(idxIsActive) == 1
+                    };
+
+                    enrollments.Add(enrollment);
+                }
+
+                return enrollments;
+            }
+            finally
+            {
+                if (shouldDispose)
+                    connection.Dispose();
+            }
+        }
+
+        /// <summary>
         /// Lấy danh sách đăng ký học phần của sinh viên trong một học kỳ
         /// </summary>
         public async Task<IEnumerable<Enrollment>> GetEnrollmentsByStudentInSemesterAsync(Guid studentId, Guid semesterId)

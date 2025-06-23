@@ -8,6 +8,12 @@ namespace StudentRegistration.Domain.Interfaces
     public interface IEnrollmentRepository
     {
         /// <summary>
+        /// Lấy tất cả enrollment (cho testing và admin)
+        /// </summary>
+        /// <returns>Danh sách tất cả enrollment</returns>
+        Task<IEnumerable<Enrollment>> GetAllEnrollmentsAsync();
+
+        /// <summary>
         /// Lấy danh sách đăng ký học phần của sinh viên trong một học kỳ
         /// </summary>
         /// <param name="studentId">ID của sinh viên</param>
