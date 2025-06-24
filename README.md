@@ -2,6 +2,24 @@
 
 Hệ thống đăng ký học phần cho sinh viên được thiết kế theo Clean Architecture.
 
+## 🚀 Bắt đầu nhanh
+
+### Cài đặt dependencies
+Trước khi chạy hệ thống, hãy đọc hướng dẫn cài đặt dependencies:
+- [📋 Hướng dẫn cài đặt dependencies](docs/00_Installation_Guide.md)
+
+### Chạy hệ thống
+```bash
+# Backend (.NET 8)
+cd src/StudentRegistration.Api
+dotnet run
+
+# Frontend (React)
+cd frontend
+npm install
+npm start
+```
+
 ## 🏗️ Kiến trúc dự án
 
 ```
@@ -14,9 +32,19 @@ src/
 │   ├── Services/                        # Business logic services
 │   ├── Interfaces/                      # Application interfaces
 │   └── Examples/                        # Usage examples
+├── StudentRegistration.Api/             # Web API Layer
+│   ├── Controllers/                     # API Controllers
+│   ├── Services/                        # API Services
+│   └── Middleware/                      # Custom Middleware
 ├── StudentRegistration.Console/         # Console Application (Demo)
 tests/
 └── StudentRegistration.Application.Tests/  # Unit tests
+frontend/                                # React SPA
+├── src/
+│   ├── components/                      # React Components
+│   ├── pages/                          # React Pages
+│   ├── services/                       # API Services
+│   └── contexts/                       # React Contexts
 ```
 
 ## 🎯 Business Rules đã implement
