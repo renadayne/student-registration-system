@@ -1,5 +1,10 @@
 # Hướng dẫn sử dụng hệ thống Student Registration System
 
+## 📋 Trước khi bắt đầu
+
+**Quan trọng**: Nếu bạn chưa cài đặt dependencies, hãy đọc trước:
+- [📋 Hướng dẫn cài đặt dependencies](00_Installation_Guide.md)
+
 ## 1. Chạy Backend (.NET 8)
 
 ```bash
