@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -13,6 +13,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Application.Tests", "tests\StudentRegistration.Application.Tests\StudentRegistration.Application.Tests.csproj", "{C3D4E5F6-G7H8-9012-CDEF-345678901234}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Infrastructure.Tests", "tests\StudentRegistration.Infrastructure.Tests\StudentRegistration.Infrastructure.Tests.csproj", "{F6G7H8I9-J0K1-2345-GHIJ-678901234567}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2407D2FC-9058-4885-8905-D7ED6FE87E98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentRegistration.Api", "src\StudentRegistration.Api\StudentRegistration.Api.csproj", "{D1582690-E71B-490E-9332-B50FFDD511B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,8 +48,15 @@ Global
 		{F6G7H8I9-J0K1-2345-GHIJ-678901234567}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6G7H8I9-J0K1-2345-GHIJ-678901234567}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6G7H8I9-J0K1-2345-GHIJ-678901234567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1582690-E71B-490E-9332-B50FFDD511B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1582690-E71B-490E-9332-B50FFDD511B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1582690-E71B-490E-9332-B50FFDD511B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1582690-E71B-490E-9332-B50FFDD511B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-EndGlobal 
+	GlobalSection(NestedProjects) = preSolution
+		{D1582690-E71B-490E-9332-B50FFDD511B1} = {2407D2FC-9058-4885-8905-D7ED6FE87E98}
+	EndGlobalSection
+EndGlobal
