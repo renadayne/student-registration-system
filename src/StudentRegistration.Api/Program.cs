@@ -10,9 +10,25 @@ using StudentRegistration.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+});
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+    });
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -47,8 +63,23 @@ builder.Services.AddScoped<IEnrollmentRuleChecker, EnrollmentRuleChecker>();
 builder.Services.AddSingleton<IUserRepository, InMemoryUserRepository>();
 builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
-// Refresh Token Services
-builder.Services.AddSingleton<IRefreshTokenStore, InMemoryRefreshTokenStore>();
+// Refresh Token Services - Configurable: InMemory hoặc SQLite
+var useSqliteForRefreshTokens = builder.Configuration.GetValue<bool>("UseSqliteForRefreshTokens", false);
+
+if (useSqliteForRefreshTokens)
+{
+    // SQLite Refresh Token Store
+    var sqliteConnectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+        ?? "Data Source=student_registration.db";
+    builder.Services.AddScoped<IRefreshTokenStore>(sp => 
+        new SQLiteRefreshTokenStore(sqliteConnectionString));
+}
+else
+{
+    // InMemory Refresh Token Store (default cho development)
+    builder.Services.AddSingleton<IRefreshTokenStore, InMemoryRefreshTokenStore>();
+}
+
 builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 
 // Cấu hình JWT authentication
@@ -94,6 +125,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Add CORS middleware
+app.UseCors("AllowFrontend");
 
 // Exception Handler Middleware
 app.UseMiddleware<ExceptionHandlerMiddleware>();
